@@ -2,12 +2,15 @@
 
 <template>
   <main @mousemove="bgmove" ref="bg"></main>
-  <button @click="togglebgm" class="playmusic">play</button>
+  <!-- <button @click="togglebgm" class="playmusic">play</button> -->
+  <PlayButtom @click="togglebgm" class="playmusic"></PlayButtom>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { NButton } from 'naive-ui'
+import PlayButtom from '@/components/PlayButtom.vue'
+import { startSakura } from '@/components/SakuraFalling.vue'
 
 const bg = ref<HTMLElement>()
 
@@ -18,6 +21,8 @@ function bgmove(e: MouseEvent) {
   bg.value!.style.backgroundPositionX = 0.05 * (e.x - w / 2) + 'px'
   bg.value!.style.backgroundPositionY = 0.02 * (e.y - h / 2) + 'px'
 }
+
+startSakura();
 </script>
 
 <script lang="ts">
@@ -47,7 +52,8 @@ const togglebgm = () => {
 }
 </script>
 
-<style>
+<style lang="scss">
+$scale: 0.6;
 main {
   height: 100vh;
   background: url(../assets/bg.png) no-repeat center/80%;
@@ -55,20 +61,17 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-position linear 0.1s
 }
 
 .playmusic {
   position: absolute;
-  width: 4em;
-  height: 4em;
   right: 2em;
   bottom: 2em;
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: 2000;
-  border-radius: 1em;
-  border: 0.1em black solid
+  scale: $scale;
+  transition: scale .1s linear;
 }
 .playmusic:hover {
-  scale: 1.03
+  scale: $scale+0.04;
 }
 </style>
