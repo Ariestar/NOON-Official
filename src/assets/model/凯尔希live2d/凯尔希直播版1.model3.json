@@ -1,0 +1,30 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "凯尔希直播版1.moc3",
+		"Textures": [
+			"凯尔希直播版1.4096/texture_00.png"
+		],
+		"Physics": "凯尔希直播版1.physics3.json",
+		"DisplayInfo": "凯尔希直播版1.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeROpen",
+				"ParamHairFront",
+				"ParamHairSide",
+				"ParamHairBack",
+				"Param8"
+			]
+		}
+	]
+}

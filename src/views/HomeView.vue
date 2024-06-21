@@ -1,5 +1,3 @@
-
-
 <template>
   <main @mousemove="bgmove" ref="bg"></main>
   <!-- <button @click="togglebgm" class="playmusic">play</button> -->
@@ -8,9 +6,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NButton } from 'naive-ui'
 import PlayButtom from '@/components/PlayButtom.vue'
-import { startSakura } from '@/components/SakuraFalling.vue'
+// import { startSakura } from '@/components/SakuraFalling.vue'
 
 const bg = ref<HTMLElement>()
 
@@ -22,28 +19,28 @@ function bgmove(e: MouseEvent) {
   bg.value!.style.backgroundPositionY = 0.02 * (e.y - h / 2) + 'px'
 }
 
-startSakura();
+// startSakura()
 </script>
 
 <script lang="ts">
-const bgm = new Audio("src/assets/BGM00.OGG")
+const bgm = new Audio('src/assets/BGM00.OGG')
 const togglebgm = () => {
-  if(bgm.paused) {
+  if (bgm.paused) {
     bgm.play()
     bgm.volume = 0
-    const id = setInterval(()=>{
-      bgm.volume+=0.01;
-      console.log(bgm.volume);
-      
+    const id = setInterval(() => {
+      bgm.volume += 0.01
+      console.log(bgm.volume)
+
       bgm.volume >= 0.99 ? clearInterval(id) : null
     }, 10)
   } else {
     bgm.volume = 0.99
-    const id = setInterval(()=>{
-      bgm.volume-=0.01;
-      console.log(bgm.volume);
-      
-      if(bgm.volume <= 0.01) {
+    const id = setInterval(() => {
+      bgm.volume -= 0.01
+      console.log(bgm.volume)
+
+      if (bgm.volume <= 0.01) {
         clearInterval(id)
         bgm.pause()
       }
@@ -51,6 +48,8 @@ const togglebgm = () => {
   }
 }
 </script>
+
+<script lang="ts"></script>
 
 <style lang="scss">
 $scale: 0.6;
@@ -61,7 +60,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-position linear 0.1s
+  transition: background-position linear 0.1s;
 }
 
 .playmusic {
@@ -69,9 +68,9 @@ main {
   right: 2em;
   bottom: 2em;
   scale: $scale;
-  transition: scale .1s linear;
+  transition: scale 0.1s linear;
 }
 .playmusic:hover {
-  scale: $scale+0.04;
+  scale: $scale + 0.04;
 }
 </style>
