@@ -11,7 +11,7 @@
 
 <script setup></script>
 
-<style>
+<style scoped>
 .botón {
   align-items: center;
   display: flex;

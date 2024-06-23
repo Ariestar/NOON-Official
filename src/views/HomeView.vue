@@ -1,14 +1,15 @@
 <template>
   <main @mousemove="bgmove" ref="bg"></main>
-  <!-- <button @click="togglebgm" class="playmusic">play</button> -->
   <PlayButtom @click="togglebgm" class="playmusic"></PlayButtom>
+  <SakuraFalling />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import PlayButtom from '@/components/PlayButtom.vue'
-// import { startSakura } from '@/components/SakuraFalling.vue'
+import SakuraFalling from '@/components/SakuraFalling.vue'
 
+const sakura = ref<any>()
 const bg = ref<HTMLElement>()
 
 function bgmove(e: MouseEvent) {
@@ -18,8 +19,12 @@ function bgmove(e: MouseEvent) {
   bg.value!.style.backgroundPositionX = 0.05 * (e.x - w / 2) + 'px'
   bg.value!.style.backgroundPositionY = 0.02 * (e.y - h / 2) + 'px'
 }
-
-// startSakura()
+onMounted(() => {
+  console.log(sakura)
+  if (sakura.value) {
+    sakura!.value.startSakura()
+  }
+})
 </script>
 
 <script lang="ts">
@@ -51,7 +56,7 @@ const togglebgm = () => {
 
 <script lang="ts"></script>
 
-<style lang="scss">
+<style scoped lang="scss">
 $scale: 0.6;
 main {
   height: 100vh;

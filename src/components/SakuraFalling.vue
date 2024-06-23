@@ -1,5 +1,8 @@
-<script lang="ts">
-//全屏樱花飘落
+<template>
+  <canvas class="sakura"></canvas>
+</template>
+
+<script setup lang="ts">
 let stop: any, x: number, y: number, s: number, r: number, fn: any, list: any[] // eslint-disable-line no-unused-vars
 let img = new Image()
 img.src =
@@ -118,21 +121,17 @@ function getRandom(option: string) {
   return ret
 }
 
-export function startSakura(flowerNum: number=15) {
-  stopp()
+function startSakura(flowerNum: number = 15) {
   let requestAnimationFrame =
     window.requestAnimationFrame ||
     (window as any).mozRequestAnimationFrame ||
     (window as any).webkitRequestAnimationFrame ||
     (window as any).msRequestAnimationFrame ||
     (window as any).oRequestAnimationFrame
-  let canvas = document.createElement('canvas'),
+  let canvas = document.querySelector('canvas.sakura') as HTMLCanvasElement,
     cxt: CanvasRenderingContext2D | null
   canvas.height = window.innerHeight
   canvas.width = window.innerWidth
-  canvas.setAttribute('style', 'position: fixed;left: 0;top: 0;pointer-events: none;')
-  canvas.setAttribute('id', 'canvas_sakura')
-  document.getElementsByTagName('body')[0].appendChild(canvas)
   cxt = canvas.getContext('2d')
   let sakuraList = new SakuraList()
   for (let i = 0; i < flowerNum; i++) {
@@ -170,7 +169,7 @@ export function startSakura(flowerNum: number=15) {
 }
 
 window.onresize = function () {
-  let canvasSnow = <HTMLCanvasElement>document.getElementById('canvas_sakura')
+  let canvasSnow = <HTMLCanvasElement>document.querySelector('canvas.sakura')
   if (canvasSnow) {
     canvasSnow.width = window.innerWidth
     canvasSnow.height = window.innerHeight
@@ -181,11 +180,25 @@ img.onload = function () {
   startSakura()
 }
 
-export function stopp() {
-  let child = document.getElementById('canvas_sakura')
+function stopp() {
+  let child = document.querySelector('canvas.sakura')
   if (child) {
     child.parentNode?.removeChild(child)
     window.cancelAnimationFrame(stop)
   }
 }
+
+defineExpose({
+  startSakura,
+  stopp
+})
 </script>
+
+<style scoped>
+.sakura {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none
+}
+</style>
